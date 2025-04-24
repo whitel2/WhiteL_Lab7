@@ -2,6 +2,10 @@
 
 #include "BinaryTree.h"
 
+
+/////////////////////////////////////////////////////////////////////////////////CHANGE TO INORDER!!!!!!!
+
+
 //Helper function to insert a number into a tree
 void BinaryTree::insertHelper(Node*& node, const int& number)
 {

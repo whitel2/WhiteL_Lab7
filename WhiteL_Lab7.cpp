@@ -16,7 +16,8 @@ int choice;
 
 int main()
 {
-    //BinaryTree tree;
+    BinaryTree tree;
+    //AVLTree treeCopy;
     int choice = 0;
 
     //Loop until the user chooses to exit
@@ -31,14 +32,18 @@ int main()
         cout << "Enter your choice: ";
         cin >> choice;
 
-        //If the user chooses to enter a file
+        //If the user chooses to enter a number
         if (choice == 1)
         {
             int number;
             cout << "Enter Integer: ";
             cin >> number;
 
-            //Use insert function*************************************************************************
+            //Insert the number into the tree
+            tree.insert(number);
+
+            //Pre-order print the tree with the new number
+            //############################################################################################
         }
 
         //If the user chooses to slow balance
@@ -47,6 +52,7 @@ int main()
             cout << "Exiting...\n";
 
             //Use balance function************************************************************************
+            //Pre-order
 
         }        
         
@@ -56,6 +62,7 @@ int main()
             cout << "Exiting...\n";
 
             //Use quick balance function******************************************************************
+            //Pre-order
 
         }        
         
