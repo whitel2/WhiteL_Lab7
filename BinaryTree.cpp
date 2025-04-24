@@ -1,50 +1,37 @@
 // Lauren White - Lab 7
 
 #include "BinaryTree.h"
-/*
-//Helper function to insert a word into a tree
-void BinaryTree::insertHelper(WordNode*& node, const string& word)
+
+//Helper function to insert a number into a tree
+void BinaryTree::insertHelper(Node*& node, const int& number)
 {
-    //If there is no node for this word, create a new one
+    //If there is no node for this number, create a new one
     if (!node)
     {
-        node = new WordNode(word);
+        node = new Node(number);
     }
 
-    //Create a word node to the left
-    else if (word < node->word)
+    //Create a number node to the left
+    else if (number < node->number)
     {
-        insertHelper(node->left, word);
+        insertHelper(node->left, number);
     }
 
-    //Create a word node to the right
-    else if (word > node->word)
+    //Create a number node to the right
+    else if (number > node->number)
     {
-        insertHelper(node->right, word);
+        insertHelper(node->right, number);
     }
 
-    //If the word node already exists, increment the count
+    //If the number node already exists, increment the count
     else
     {
         node->increment();
     }
 }
 
-//Method to insert a word into a binary tree
-void BinaryTree::insert(string word)
-{
-    string processedWord = processWord(word);
-
-    //If there is a processed word
-    if (!processedWord.empty())
-    {
-        //Insert the word
-        insertHelper(root, processedWord);
-    }
-}
-
-//Helper function to delete a word from a tree
-WordNode* BinaryTree::deleteHelper(WordNode* node, const string& word)
+//Helper function to delete a number from a tree
+Node* BinaryTree::deleteHelper(Node* node, const int& number)
 {
     //If there are no nodes
     if (!node)
@@ -53,19 +40,19 @@ WordNode* BinaryTree::deleteHelper(WordNode* node, const string& word)
         return nullptr;
     }
 
-    //Delete a word node to the left
-    if (word < node->word)
+    //Delete a number node to the left
+    if (number < node->number)
     {
-        node->left = deleteHelper(node->left, word);
+        node->left = deleteHelper(node->left, number);
     }
 
-    //Delete a word node to the left
-    else if (word > node->word)
+    //Delete a number node to the left
+    else if (number > node->number)
     {
-        node->right = deleteHelper(node->right, word);
+        node->right = deleteHelper(node->right, number);
     }
 
-    //If the word is found
+    //If the number is found
     else
     {
         //If the node is a leaf
@@ -80,7 +67,7 @@ WordNode* BinaryTree::deleteHelper(WordNode* node, const string& word)
         else if (!node->left || !node->right)
         {
             //Delete the child
-            WordNode* temp = node->left ? node->left : node->right;
+            Node* temp = node->left ? node->left : node->right;
             delete node;
             return temp;
         }
@@ -89,7 +76,7 @@ WordNode* BinaryTree::deleteHelper(WordNode* node, const string& word)
         else
         {
 
-            WordNode* child = node->right;
+            Node* child = node->right;
 
             //Find the next child (inorder)
             while (child->left)
@@ -98,18 +85,18 @@ WordNode* BinaryTree::deleteHelper(WordNode* node, const string& word)
             }
 
             //Copy the child's data
-            //node->word = child->word;
+            //node->number = child->number;
            // node->count = child->count;
 
             //Delete the child
-            node->right = deleteHelper(node->right, child->word);
+            node->right = deleteHelper(node->right, child->number);
         }
     }
     return node;
 }
 
 //Helper function for in-order traversal to write tree to a file
-void BinaryTree::inorderHelper(WordNode* node, ofstream& outFile) const
+void BinaryTree::inorderHelper(Node* node, ofstream& outFile) const
 {
     //If there are no nodes
     if (!node)
@@ -121,15 +108,15 @@ void BinaryTree::inorderHelper(WordNode* node, ofstream& outFile) const
     //Traverse the left subtree (inorder)
     inorderHelper(node->left, outFile);
 
-    //Print the current node's word and count to the output file
-    outFile << node->word << ": " << node->count << endl;
+    //Print the current node's number and count to the output file
+    outFile << node->number << ": " << node->count << endl;
 
     //Traverse the right subtree (inorder)
     inorderHelper(node->right, outFile);
 }
 
-//Method to search for a word in a binary tree
-bool BinaryTree::searchHelper(WordNode* node, const string& word) const
+//Method to search for a number in a binary tree
+bool BinaryTree::searchHelper(Node* node, const int& number) const
 {
     //If there are no nodes
     if (!node)
@@ -138,25 +125,25 @@ bool BinaryTree::searchHelper(WordNode* node, const string& word) const
         return false;
     }
 
-    //If the current node's word matches the target word
-    if (word == node->word)
+    //If the current node's number matches the target number
+    if (number == node->number)
     {
         //Return true
         return true;
     }
 
     //Search the left subtree
-    else if (word < node->word)
+    else if (number < node->number)
     {
-        return searchHelper(node->left, word);
+        return searchHelper(node->left, number);
     }
 
     //Search the right subtree
-    else return searchHelper(node->right, word);
+    else return searchHelper(node->right, number);
 }
 
 //Helper function to destroy a tree
-void BinaryTree::destroyTree(WordNode* node)
+void BinaryTree::destroyTree(Node* node)
 {
     //If there are no nodes
     if (!node)
@@ -169,7 +156,6 @@ void BinaryTree::destroyTree(WordNode* node)
     destroyTree(node->left);
     destroyTree(node->right);
 
-    //Destroy the given word node
+    //Destroy the given number node
     delete node;
 }
-*/

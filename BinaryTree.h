@@ -3,49 +3,45 @@
 #ifndef BINARYTREE_H
 #define BINARYTREE_H
 
-#include <fstream>
-#include <string>
-#include <iostream>
+#include "Node.h"
 
 using namespace std;
-/*
+
 class BinaryTree
 {
 private:
-    int root;
+    Node* root;
 
-    //Helper function to insert a word into a tree
-    void insertHelper(WordNode*& node, const string& word);
+    //Helper function to insert a number into a tree
+    void insertHelper(Node*& node, const int& number);
 
-    //Helper function to delete a word from a tree
-    WordNode* deleteHelper(WordNode* node, const string& word);
+    //Helper function to delete a number from a tree
+    Node* deleteHelper(Node* node, const int& number);
 
     //Helper function for in-order traversal to write tree to a file
-    void inorderHelper(WordNode* node, ofstream& outFile) const;
+    void inorderHelper(Node* node, ofstream& outFile) const;
 
-    //Helper function to searching for a word in a tree
-    bool searchHelper(WordNode* node, const string& word) const;
+    //Helper function to searching for a number in a tree
+    bool searchHelper(Node* node, const int& number) const;
 
     //Helper function to destroy a tree
-    void destroyTree(WordNode* node);
+    void destroyTree(Node* node);
 
 public:
     //Constructor
     BinaryTree() : root(0) {}
 
     //Method to insert a number into a binary tree
-    void insert(int number);
+    void insert(int number) { insertHelper(root, number); }
 
-    //Method to delete a word from a binary tree
-    void deleteWord(const string& word) { root = deleteHelper(root, word); }
+    //Method to delete a number from a binary tree
+    void deletenumber(const int& number) { root = deleteHelper(root, number); }
 
-    //Method to search for a word in a binary tree
-    bool search(const string& word) const { return searchHelper(root, word); }
-
+    //Method to search for a number in a binary tree
+    bool search(const int& number) const { return searchHelper(root, number); }
 
     //Destructor
     ~BinaryTree() { destroyTree(root); }
 };
-*/
 
 #endif
