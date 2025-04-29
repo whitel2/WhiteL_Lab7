@@ -2,10 +2,6 @@
 
 #include "BinaryTree.h"
 
-
-/////////////////////////////////////////////////////////////////////////////////CHANGE TO INORDER!!!!!!!
-
-
 //Helper function to insert a number into a tree
 void BinaryTree::insertHelper(Node*& node, const int& number)
 {
@@ -50,7 +46,7 @@ Node* BinaryTree::deleteHelper(Node* node, const int& number)
         node->left = deleteHelper(node->left, number);
     }
 
-    //Delete a number node to the left
+    //Delete a number node to the right
     else if (number > node->number)
     {
         node->right = deleteHelper(node->right, number);
@@ -82,41 +78,18 @@ Node* BinaryTree::deleteHelper(Node* node, const int& number)
 
             Node* child = node->right;
 
-            //Find the next child (inorder)
+            //Find the next child (in-order)
             while (child->left)
             {
                 child = child->left;
             }
 
-            //Copy the child's data
-            //node->number = child->number;
-           // node->count = child->count;
-
             //Delete the child
+            node->number = child->number;
             node->right = deleteHelper(node->right, child->number);
         }
     }
     return node;
-}
-
-//Helper function for in-order traversal to write tree to a file
-void BinaryTree::inorderHelper(Node* node, ofstream& outFile) const
-{
-    //If there are no nodes
-    if (!node)
-    {
-        //Exit the function
-        return;
-    }
-
-    //Traverse the left subtree (inorder)
-    inorderHelper(node->left, outFile);
-
-    //Print the current node's number and count to the output file
-    outFile << node->number << ": " << node->count << endl;
-
-    //Traverse the right subtree (inorder)
-    inorderHelper(node->right, outFile);
 }
 
 //Method to search for a number in a binary tree
@@ -162,4 +135,76 @@ void BinaryTree::destroyTree(Node* node)
 
     //Destroy the given number node
     delete node;
+}
+
+//Helper function to traverse the tree using pre-order
+void BinaryTree::preorderHelper(Node* node) 
+{
+    //Exit if there is no data in the node
+    if (!node)
+    {
+        return;
+    }
+
+    // Print the current node's data
+    cout << node->number << " ";
+
+    // Traverse the left subtree
+    preorderHelper(node->left);
+
+    // Traverse the right subtree
+    preorderHelper(node->right);
+}
+
+//Build a balanced tree
+Node* BinaryTree::buildBalancedTree(vector<int>& sortedArray, int start, int end)
+{
+    // If there are no numbers left to process, exit
+    if (start > end)
+    {
+        return nullptr;
+    }
+
+    // Find the middle number
+    int middle = (start + end) / 2;
+    Node* node = new Node(sortedArray[middle]);
+
+    // Build the left and right subtrees
+    node->left = buildBalancedTree(sortedArray, start, middle - 1);
+    node->right = buildBalancedTree(sortedArray, middle + 1, end);
+    return node;
+}
+
+//Flatten the tree into a vector using in-order traversal
+void BinaryTree::flattenTree(Node* node, vector<int>& result)
+{
+    //If there are no nodes, exit
+    if (!node)
+    {
+        return;
+    }
+
+    //Combine the left and right nodes into one vector
+    flattenTree(node->left, result);
+    result.push_back(node->number);
+    flattenTree(node->right, result);
+}
+
+//Traverse the tree using pre-order
+void BinaryTree::preorderTraversal()
+{
+    preorderHelper(root);
+    cout << endl;
+}
+
+//Rebalance the tree in O(n) time
+void BinaryTree::fastBalance()
+{
+    vector<int> sortedArray;
+
+    //Flatten the tree to a sorted vector
+    flattenTree(root, sortedArray);
+
+    //Build a balanced tree from the sorted vector
+    root = buildBalancedTree(sortedArray, 0, sortedArray.size() - 1);
 }

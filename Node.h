@@ -13,26 +13,21 @@ class Node
 {
 public:
 
-    //Word node data and pointers
-    int number;
+    //Number node data and pointers
     int count;
+    int number;
     Node* left;
     Node* right;
+    int height;
 
     //Constructor
-    Node(int num) : number(num), count(1), left(nullptr), right(nullptr) {};
+    Node(int val) : count(0), number(val), left(nullptr), right(nullptr), height(1) {}
 
     //Get the number
     int getNumber() const { return number; }
 
-    //Get the count
-    int getCount() const { return count; }
-
     //Set the number
     void setNumber(const int& num) { number = num; }
-
-    //Set the count
-    void setCount(int c) { count = c; }
 
     //Increment the count
     void increment() { count++; }
